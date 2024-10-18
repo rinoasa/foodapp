@@ -6,35 +6,45 @@
 ## フォルダ構成
 
 ```
-FOOD_APP/
-├── .streamlit/                    # Streamlitの設定ファイル
-│   └── config.toml                # Streamlitのテーマ設定
-├── data/                          # データ関連
-│   ├── csv/                       # カロリー情報が含まれたCSVファイル
-│   │   └── food_data.csv          # 食品名とカロリー情報
-│   ├── food-101/                  # Food101データセット
-│   │   ├── images/                # 画像データ
-│   │   ├── meta/                  # メタデータ
-│   │   ├── license_agreement.txt  # ライセンス情報
-│   │   └── README.txt             # データセットのREADME
-│   └── processed/                 # 処理済みデータ（圧縮ファイルなど）
-│       └── food-101.tar.gz        # 処理されたデータ
-├── models/                        # モデル関連
-│   └── best_food101_model.pth     # 訓練済みモデル
-├── src/                           # ソースコード
-│   ├── app.py                     # Streamlitアプリのエントリポイント
-│   ├── database.py                # データベース操作を行うモジュール
-│   ├── main.py                    # FastAPIアプリのエントリポイント
-│   └── model.py                   # モデル定義とトレーニングロジック
-├── test/                          # テスト関連ファイル
-│   ├── accuracy_plot.png          # 精度プロット画像
-│   ├── loss_plot.png              # 損失プロット画像
-│   └── training_log.txt           # トレーニングログ
-├── uploaded_images/               # ユーザーがアップロードした画像（無視される）
-├── .gitignore                     # Gitが無視するファイルリスト
-├── food_app.db                    # SQLiteデータベースファイル（無視される）
-├── README.md                      # このファイル
-└── requirements.txt               # 依存関係リスト
+FOODAPP                        
+│
+├── .streamlit                 # Streamlitの設定ファイル
+│   └── config.toml           
+│
+├── data                       # データ関連
+│   └── csv                    # CSVファイルを格納
+│       └── food_data.csv      # 食品データのCSV
+│
+├── models                     # モデル関連
+│   └── best_food101_model.pth  # 学習済みモデル
+│
+├── src                        # ソースコード
+│   ├── __pycache__           
+│   ├── __init__.py           
+│   ├── app.py                # アプリケーションのメインロジック
+│   ├── database.py           # データベース操作
+│   ├── main.py               # アプリケーションのエントリポイント
+│   └── model.py              # モデル定義
+│
+├── test                       # テスト関連
+│   ├── accuracy_plot.png      # 精度のプロット画像
+│   ├── loss_plot.png          # ロスのプロット画像
+│   └── training_log.txt       # 学習ログ
+│
+├── hoge                       # 個人データ用のディレクトリ
+│   ├── hoge1.jpg              
+│   ├── hoge2.jpg              
+│   └── hoge3.jpg              
+│
+├── venv                       # 仮想環境
+│
+├── .gitignore                 # Gitで無視するファイルの設定
+│
+├── food_app.db                # SQLiteデータベース
+│
+├── README.md                  # プロジェクトの説明
+│
+└── requirements.txt           # 依存パッケージリスト
 ```
 
 ## インストール
@@ -63,13 +73,16 @@ FOOD_APP/
    ```bash
    pip install -r requirements.txt
    ```
+## アプリ画面のイメージ
 
-4. **Food-101データセットをダウンロード**し、展開されていない場合は`data/processed/`ディレクトリ内に`food-101.tar.gz`を保存し、必要に応じて展開します。
+<div style="display: flex; justify-content: space-around;">
+    <img src="https://github.com/rinoasa/foodapp/blob/dev/test/foodapp_sample_image1.png?raw=true" alt="Streamlit App Interface 1" style="width: 45%;"/>
+    <img src="https://github.com/rinoasa/foodapp/blob/dev/test/foodapp_sample_image2.png?raw=true" alt="Streamlit App Interface 2" style="width: 45%;"/>
+</div>
 
-5. **`food_data.csv`をデータベースにインポート**します（必要に応じて）。
-   ```bash
-   python src/database.py
-   ```
+## データベースの管理
+
+- 食品名とカロリーのデータベースは`food_data.csv`を基に初期化されます。`src/database.py`を実行して、CSVデータをデータベースに登録します。
 
 ## 使用方法
 
@@ -85,11 +98,8 @@ FOOD_APP/
 
 3. **ブラウザでアプリにアクセス**します。  
    [http://localhost:8501](http://localhost:8501) にアクセスし、食事画像をアップロードして分類を行います。
-
-## データベースの管理
-
-- 食品名とカロリーのデータベースは`food_data.csv`を基に初期化されます。`src/database.py`を実行して、CSVデータをデータベースに登録します。
+   
 
 ## ライセンス
 
-このプロジェクトは[MITライセンス](LICENSE)の下で公開されています。
+このプロジェクトはライセンスが設定されていません。
