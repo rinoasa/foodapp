@@ -35,10 +35,7 @@ class FoodDiary(Base):
     mealtime = Column(String)
     time = Column(String)  # 'HH:MM:SS'形式
     image_path = Column(String)
-<<<<<<< HEAD
     calories = Column(Float)  # カロリー情報を追加
-=======
->>>>>>> 91ac4088b (Initial commit with Git LFS for large files)
 
 # テーブルを作成
 Base.metadata.create_all(bind=engine)
@@ -50,29 +47,17 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 def load_food_data_from_csv(csv_file_path):
     df = pd.read_csv(csv_file_path)
     
-<<<<<<< HEAD
-=======
-    # セッションを作成
->>>>>>> 91ac4088b (Initial commit with Git LFS for large files)
     db = SessionLocal()
     try:
         for index, row in df.iterrows():
             food_name = row['食品名']  # CSVのカラム名に合わせて修正
             calories = row['カロリー (kcal/100g)']  # CSVのカラム名に合わせて修正
 
-<<<<<<< HEAD
-=======
-            # 既に存在するか確認
->>>>>>> 91ac4088b (Initial commit with Git LFS for large files)
             existing_food = db.query(FoodCalories).filter(FoodCalories.food_name == food_name).first()
             if existing_food:
                 print(f"{food_name}は既に存在します。")
                 continue
 
-<<<<<<< HEAD
-=======
-            # データを追加
->>>>>>> 91ac4088b (Initial commit with Git LFS for large files)
             food_calorie = FoodCalories(food_name=food_name, calories_per_100g=calories)
             db.add(food_calorie)
             db.commit()
@@ -92,7 +77,6 @@ def get_food_calories(food_name: str):
     finally:
         db.close()
 
-<<<<<<< HEAD
 # 食べたもの日記を追加する関数
 def add_food_diary(food_name: str, date: str, mealtime: str, time: str, image_path: str, calories: float):
     db = SessionLocal()
@@ -115,16 +99,10 @@ def get_food_diary():
     finally:
         db.close()
 
-=======
->>>>>>> 91ac4088b (Initial commit with Git LFS for large files)
 # メイン処理
 if __name__ == "__main__":
     csv_path = './data/csv/food_data.csv'  # CSVファイルのパス
     
-<<<<<<< HEAD
-=======
-    # CSVファイルの存在を確認
->>>>>>> 91ac4088b (Initial commit with Git LFS for large files)
     if not os.path.exists(csv_path):
         print(f"CSVファイルが見つかりません: {csv_path}")
     else:
