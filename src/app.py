@@ -7,9 +7,6 @@ from datetime import datetime, time
 import time as time_module
 from database import add_food_diary, get_food_calories, get_food_diary
 
-# get_food_caloriesを絶対インポート
-from database import get_food_calories
-
 # サイドバーでAPIエンドポイントを選択する
 st.sidebar.title("環境設定")
 environment = st.sidebar.selectbox("API環境を選択", ["ローカル", "Render"])
@@ -151,7 +148,6 @@ with tab1:
         # グラム数の入力
         grams = st.number_input("グラム数を入力してください", min_value=0, value=100)
 
-<<<<<<< HEAD
         # カロリー計算ボタン
         if st.button("カロリーを計算する"):
             calorie_info = get_food_calories(selected_food)
@@ -163,41 +159,6 @@ with tab1:
             else:
                 st.error("カロリー情報が見つかりませんでした。")
 
-=======
-        # グラム数の入力
-        grams = st.number_input("グラム数を入力してください", min_value=0, value=100)  # 初期値を100に設定
-
-        # カロリー計算ボタン
-        if st.button("カロリーを計算する"):
-            # 食事名とグラム数を使ってカロリーを計算
-            calorie_info = get_food_calories(selected_food)  # get_food_caloriesを呼び出す
-            if calorie_info:
-                calories_per_100g = calorie_info.calories_per_100g  # 属性を直接取得
-                total_calories = (calories_per_100g * grams) / 100
-                st.write(f"**カロリー情報:** {selected_food} : {total_calories:.2f} kcal")
-            else:
-                st.error("カロリー情報が見つかりませんでした。")
-
-        # 「それ以外の食事を登録する」チェックボックス
-        other_food_checkbox = st.checkbox("それ以外の食事を登録する")
-
-        if other_food_checkbox:
-            # 自由入力で食事名を入力
-            selected_food = st.text_input("食事名を入力してください")
-            other_grams = st.number_input("グラム数を入力してください", min_value=0, value=100)  # 初期値を100に設定
-
-            # カロリー計算ボタン（それ以外の食事）
-            if st.button("カロリーを計算する（それ以外の食事）"):
-                calorie_info = get_food_calories(selected_food)
-                if calorie_info:
-                    calories_per_100g = calorie_info.calories_per_100g  # 属性を直接取得
-                    total_calories = (calories_per_100g * other_grams) / 100
-                    st.write(f"**カロリー情報:** {selected_food} - {total_calories:.2f} kcal")
-                else:
-                    st.error("カロリー情報が見つかりませんでした。")
-
-        # 日付の入力
->>>>>>> 91ac4088b (Initial commit with Git LFS for large files)
         selected_date = st.date_input("日付", datetime.now())
         mealtime = st.selectbox("時間帯", ["朝", "昼", "夕", "間食"], key="mealtime_select")
 
