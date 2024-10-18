@@ -68,6 +68,11 @@ transform = transforms.Compose([
     transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
 ])
 
+# ルートエンドポイント
+@app.get("/")
+async def root():
+    return {"message": "API is running. Use /predict to make predictions."}
+
 # 画像から料理名を推論するAPIエンドポイント
 @app.post("/predict")
 async def predict(file: UploadFile = File(...)):
@@ -97,3 +102,8 @@ async def predict(file: UploadFile = File(...)):
         "probabilities": probabilities,  # 各クラスの確率をリストとして返す
         "class_names": class_names        # クラス名のリストを返す
     }
+
+# アプリを起動するためのエントリーポイント
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
