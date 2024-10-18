@@ -1,0 +1,36 @@
+# Pythonキャッシュファイル
+__pycache__/
+*.pyc
+
+# pytestキャッシュディレクトリ
+.pytest_cache/
+
+# 仮想環境ディレクトリ
+venv/
+.env/
+
+# データ関連（生データ、処理済みデータ、food-101の大きなファイルを無視）
+data/raw/
+data/food-101/
+data/food-101.tar.gz
+
+# IDE/エディタの設定ファイル（VSCodeやJetBrains系IDEなど）
+.vscode/
+.idea/
+
+# OS固有のファイルを無視（MacおよびWindows）
+.DS_Store
+Thumbs.db
+
+# ログファイルや環境ファイルを無視
+*.log
+*.env
+
+# アップロード画像を無視
+uploaded_images/
+
+# ローカルのデータベースファイルを無視
+food_app.db
+
+# .pth モデルファイルを無視（圧縮済みファイルは除外）
+models/best_food101_model.pth
