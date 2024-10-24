@@ -12,7 +12,7 @@ st.sidebar.title("環境設定")
 environment = st.sidebar.selectbox("API環境を選択", ["ローカル", "Render"])
 
 # FastAPIのエンドポイントを環境に応じて設定
-API_URL = "http://127.0.0.1:8000/predict" if environment == "ローカル" else "https://foodapp-gsj0.onrender.com/predict"
+API_URL = "http://127.0.0.1:8000/predict" if environment == "ローカル" else "https://foodapp-frj7.onrender.com/predict"
 
 # "食べたもの"を保存するリストをセッションに保存
 if 'eaten_foods' not in st.session_state:
