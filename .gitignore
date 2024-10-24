@@ -31,6 +31,3 @@ uploaded_images/
 
 # ローカルのデータベースファイルを無視
 food_app.db
-
-# .pth モデルファイルを無視（圧縮済みファイルは除外）
-models/best_food101_model.pth

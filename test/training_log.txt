@@ -1,4 +1,0 @@
-Training Log
-====================
-Training completed in 2441m 6s
-Test Loss: 0.7442, Test Accuracy: 80.12%
