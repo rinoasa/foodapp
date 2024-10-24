@@ -1,4 +1,5 @@
 from fastapi import FastAPI, File, UploadFile
+import os  # osモジュールをインポート
 import torch
 from torchvision import models, transforms
 from PIL import Image
@@ -106,4 +107,5 @@ async def predict(file: UploadFile = File(...)):
 # アプリを起動するためのエントリーポイント
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    port = int(os.getenv("PORT", 8000))  # 環境変数からポートを取得
+    uvicorn.run(app, host="0.0.0.0", port=port)  # 指定されたポートでアプリを実行
