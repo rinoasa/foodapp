@@ -17,33 +17,33 @@ engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
 # モデルのベースクラスを定義
 Base = declarative_base()
 
-# 食品カロリーテーブル
+# 食品カロリーテーブルの定義
 class FoodCalories(Base):
     __tablename__ = "food_calories"
 
     id = Column(Integer, primary_key=True, index=True)
-    food_name = Column(String, unique=True, index=True)
-    calories_per_100g = Column(Float)
+    food_name = Column(String, unique=True, index=True)  # 食品名
+    calories_per_100g = Column(Float)  # 100gあたりのカロリー
 
-# 食べたもの日記テーブル
+# 食べたもの日記テーブルの定義
 class FoodDiary(Base):
     __tablename__ = "food_diary"
 
     id = Column(Integer, primary_key=True, index=True)
-    food_name = Column(String, index=True)
-    date = Column(String)  # 'YYYY-MM-DD'形式
-    mealtime = Column(String)
-    time = Column(String)  # 'HH:MM:SS'形式
-    image_path = Column(String)
-    calories = Column(Float)  # カロリー情報を追加
+    food_name = Column(String, index=True)  # 食品名
+    date = Column(String)  # 日付（YYYY-MM-DD形式）
+    mealtime = Column(String)  # 食事の時間帯（例: 朝、昼、夕、間食）
+    time = Column(String)  # 時間（HH:MM:SS形式）
+    image_path = Column(String)  # 画像の保存パス
+    calories = Column(Float)  # 摂取カロリー
 
-# テーブルを作成
+# テーブルをデータベース内に作成
 Base.metadata.create_all(bind=engine)
 
-# セッションの作成
+# セッションを作成するための設定
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-# CSVからデータを読み込み、DBに登録する関数
+# CSVから食品データを読み込み、DBに登録する関数
 def load_food_data_from_csv(csv_file_path):
     df = pd.read_csv(csv_file_path)
     
@@ -53,11 +53,13 @@ def load_food_data_from_csv(csv_file_path):
             food_name = row['食品名']  # CSVのカラム名に合わせて修正
             calories = row['カロリー (kcal/100g)']  # CSVのカラム名に合わせて修正
 
+            # 食品が既に存在するか確認
             existing_food = db.query(FoodCalories).filter(FoodCalories.food_name == food_name).first()
             if existing_food:
                 print(f"{food_name}は既に存在します。")
                 continue
 
+            # 新しい食品のカロリー情報を追加
             food_calorie = FoodCalories(food_name=food_name, calories_per_100g=calories)
             db.add(food_calorie)
             db.commit()
@@ -68,7 +70,7 @@ def load_food_data_from_csv(csv_file_path):
     finally:
         db.close()
 
-# カロリー情報を取得する関数
+# 指定した食品のカロリー情報を取得する関数
 def get_food_calories(food_name: str):
     db = SessionLocal()
     try:
@@ -77,7 +79,7 @@ def get_food_calories(food_name: str):
     finally:
         db.close()
 
-# 食べたもの日記を追加する関数
+# 食べたもの日記にエントリを追加する関数
 def add_food_diary(food_name: str, date: str, mealtime: str, time: str, image_path: str, calories: float):
     db = SessionLocal()
     try:
@@ -91,7 +93,7 @@ def add_food_diary(food_name: str, date: str, mealtime: str, time: str, image_pa
     finally:
         db.close()
 
-# 食べたもの日記を取得する関数
+# すべての食べたもの日記を取得する関数
 def get_food_diary():
     db = SessionLocal()
     try:
@@ -103,6 +105,7 @@ def get_food_diary():
 if __name__ == "__main__":
     csv_path = './data/csv/food_data.csv'  # CSVファイルのパス
     
+    # CSVファイルが存在するか確認し、存在する場合はデータをDBに読み込む
     if not os.path.exists(csv_path):
         print(f"CSVファイルが見つかりません: {csv_path}")
     else:

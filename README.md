@@ -31,7 +31,7 @@ FOODAPP
 │   ├── loss_plot.png          # ロスのプロット画像
 │   └── training_log.txt       # 学習ログ
 │
-├── hoge                       # 個人データ用のディレクトリ
+├── uploaded_images            # 個人データ用のディレクトリ
 │   ├── hoge1.jpg              
 │   ├── hoge2.jpg              
 │   └── hoge3.jpg              
@@ -60,7 +60,7 @@ FOODAPP
    - **Windows**:
      ```bash
      python -m venv venv
-     venv\Scripts\activate
+     venv\Scriptsctivate
      ```
 
    - **macOS/Linux**:
@@ -73,6 +73,7 @@ FOODAPP
    ```bash
    pip install -r requirements.txt
    ```
+
 ## アプリ画面のイメージ
 
 <div style="display: flex; justify-content: space-around;">
@@ -102,4 +103,4 @@ FOODAPP
 
 ## ライセンス
 
-このプロジェクトはライセンスが設定されていません。
+このプロジェクトは [MITライセンス](LICENSE) の下で公開されています。
