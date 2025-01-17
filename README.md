@@ -60,7 +60,7 @@ FOODAPP
    - **Windows**:
      ```bash
      python -m venv venv
-     venv\Scriptsctivate
+     venv\Scripts\activate
      ```
 
    - **macOS/Linux**:
